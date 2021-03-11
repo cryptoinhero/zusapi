@@ -1,0 +1,1965 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OmniAPI</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+        });
+        hljs.initHighlightingOnLoad();
+    </script>
+    <style>body {
+    position: relative;
+}
+
+h1 {
+    margin-top: 5px;
+}
+
+h1, h2, h3, h4 {
+    color: #2b2b2b;
+}
+
+h2:after {
+    content: ' ';
+}
+
+h5 {
+    font-weight: bold;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    display: none;
+    position: absolute;
+    margin-left: 8px;
+}
+
+h1:hover a, h2:hover a, h3:hover a, h4:hover a, h5:hover a, h6:hover a {
+    color: #a5a5a5;
+    display: initial;
+}
+
+.nav.nav-tabs > li > a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tab-content {
+    padding-top: 8px;
+}
+
+.table {
+    margin-bottom: 8px;
+}
+
+pre {
+    border-radius: 0px;
+    border: none;
+}
+
+pre code {
+    margin: -9.5px;
+}
+
+.request {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.response-text-sample {
+    padding: 0px !important;
+}
+
+.response-text-sample pre {
+    margin-bottom: 0px;
+}
+
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #2b2b2b;
+    padding-top: 20px;
+}
+
+#sidebar-wrapper ul {
+    width: 250px;
+}
+
+#sidebar-wrapper ul li {
+    margin-right: 10px;
+}
+
+#sidebar-wrapper ul li a:hover {
+    background: inherit;
+    text-decoration: none;
+}
+
+#sidebar-wrapper ul li a {
+    display: block;
+    color: #ECF0F1;
+    padding: 6px 15px;
+}
+
+#sidebar-wrapper ul li ul {
+    padding-left: 25px;
+}
+
+#sidebar-wrapper ul li ul li a {
+    padding: 1px 0px;
+}
+
+#sidebar-wrapper ul li a:hover,
+#sidebar-wrapper ul li a:focus {
+    color: #e0c46c;
+    border-right: solid 1px #e0c46c;
+}
+
+#sidebar-wrapper ul li.active > a {
+    color: #e0c46c;
+    border-right: solid 3px #e0c46c;
+}
+
+#sidebar-wrapper ul li:not(.active) ul {
+    display: none;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px 15px 15px 250px;
+}
+</style>
+</head>
+<body data-spy="scroll" data-target=".scrollspy">
+<div id="sidebar-wrapper">
+    <div class="scrollspy">
+    <ul id="main-menu" data-spy="affix" class="nav">
+        <li>
+            <a href="#doc-general-notes">General notes</a>
+        </li>
+        
+        <li>
+            <a href="#doc-api-detail">API detail</a>
+        </li>
+        
+        <li>
+            <a href="#request-v2-address-addr">/v2/address/addr/</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-address-addr">/v1/address/addr/</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-address-addr-details">/v1/address/addr/details/</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-armory-getunsigned">/v1/armory/getunsigned</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-armory-getrawtransaction">/v1/armory/getrawtransaction</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-decode">/v1/decode/</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-omnidex-designatingcurrencies">/v1/omnidex/designatingcurrencies</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-properties-gethistory-property-id">/v1/properties/gethistory/<property id></a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-properties-listbyowner">/v1/properties/listbyowner</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-properties-listactivecrowdsales">/v1/properties/listactivecrowdsales</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-properties-listbyecosystem">/v1/properties/listbyecosystem</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-properties-list">/v1/properties/list</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-search">/v1/search</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-transaction-address">/v1/transaction/address</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-transaction-pushtx">/v1/transaction/pushtx/</a>
+        </li>
+        
+        <li>
+            <a href="#request-v1-transaction-tx-txhash">/v1/transaction/tx/<txhash></a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+</div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>OmniAPI</h1>
+
+                <h2 id="doc-general-notes">
+                    General notes
+                    <a href="#doc-general-notes"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                <p>Documentation Version: 1.0</p>
+
+<p>All calls herewithin may be queried against this domain as documented and will provide responses similiar to the  examples.</p>
+
+<p>All users are requested to practice proper coding techniques to prevent abusive hammering of this api. We recommend a minimum wait time of 5-10 seconds between repeat calls to prevent triggering the api rate limiter. When triggered the system will respond with an error message of <i>{&lsquo;error&rsquo;:True, &lsquo;msg&rsquo;:&lsquo;Rate Limit Reached. Please limit consecutive requests to no more than &ldquo;limit&rdquo; every &ldquo;time frame in seconds&rdquo;.&rsquo;}</i> and subsequent calls will be banned for up to one minute. Repetitive abuse of the system can lead to a permanent ban so please play fairly.</p>
+
+<p><strong>Standard Disclaimer:</strong>
+This api and the information within is provided &ldquo;as-is&rdquo; and without any warranty of the item whatsoever, whether express, implied, or statutory, including, but not limited to, any warranty of merchantability or fitness for a particular purpose or any warranty that the contents of the item will be error-free. The api is provided for reference queries and educational purposes. Use for a high availability production environment is not recommend and instead we recommend the integration of the native Omnicore client on your platform.</p>
+
+
+                
+
+                <h2 id="doc-api-detail">
+                    API detail
+                    <a href="#doc-api-detail"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v2-address-addr">
+                        /v2/address/addr/
+                        <a href="#request-v2-address-addr"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns the balance information for multiple addresses</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v2-address-addr-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v2-address-addr-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v2-address-addr-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "addr=1FoWyxwPXuj4C6abqwhjDWdz6D4PZgYRjA&addr=1KYiKJEfdJtap9QX2v9BXJMpz2SfU4pgZw" "https://api.omniwallet.org/v2/address/addr/"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v2-address-addr-example-http">
+                                <pre><code class="hljs http">POST /v2/address/addr/ HTTP/1.1
+Host: api.omniwallet.org
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+addr=1FoWyxwPXuj4C6abqwhjDWdz6D4PZgYRjA&addr=1KYiKJEfdJtap9QX2v9BXJMpz2SfU4pgZw</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v2-address-addr-responses-8a797d58-85a1-48bb-9498-13ac8c9994e1" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v2-address-addr-responses-8a797d58-85a1-48bb-9498-13ac8c9994e1">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Date</th><td>Thu, 05 Jul 2018 18:26:31 GMT</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "1FoWyxwPXuj4C6abqwhjDWdz6D4PZgYRjA": {
+        "balance": [
+            {
+                "pendingpos": "231154059052026",
+                "reserved": "0",
+                "divisible": true,
+                "symbol": "SP31",
+                "value": "81672408571806609",
+                "frozen": "0",
+                "pendingneg": "-16422699999141",
+                "id": "31"
+            },
+            {
+                "pendingpos": "0",
+                "divisible": true,
+                "symbol": "BTC",
+                "value": "860484222",
+                "pendingneg": "0",
+                "error": false,
+                "id": 0
+            }
+        ]
+    },
+    "1KYiKJEfdJtap9QX2v9BXJMpz2SfU4pgZw": {
+        "balance": [
+            {
+                "pendingpos": "0",
+                "reserved": "0",
+                "divisible": true,
+                "symbol": "SP31",
+                "value": "12587438660387443",
+                "frozen": "0",
+                "pendingneg": "0",
+                "id": "31"
+            },
+            {
+                "pendingpos": "0",
+                "divisible": true,
+                "symbol": "BTC",
+                "value": "8916129408",
+                "pendingneg": "0",
+                "error": false,
+                "id": 0
+            }
+        ]
+    }
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-address-addr">
+                        /v1/address/addr/
+                        <a href="#request-v1-address-addr"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns the balance information for a given address. For multiple addresses in a single query use the v2 endpoint</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-address-addr-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-address-addr-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-address-addr-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "addr=1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P" "https://api.omniexplorer.info/v1/address/addr/"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-address-addr-example-http">
+                                <pre><code class="hljs http">POST /v1/address/addr/ HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+addr=1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-address-addr-responses-7f91b1f2-9429-4932-862d-85996b7ccb7b" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-address-addr-responses-7f91b1f2-9429-4932-862d-85996b7ccb7b">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "balance": [
+        {
+            "divisible": true,
+            "frozen": "0",
+            "id": "1",
+            "pendingneg": "0",
+            "pendingpos": "0",
+            "reserved": "0",
+            "symbol": "OMNI",
+            "value": "3054147959984"
+        },
+        {
+            "divisible": true,
+            "frozen": "0",
+            "id": "2",
+            "pendingneg": "0",
+            "pendingpos": "0",
+            "reserved": "0",
+            "symbol": "T-OMNI",
+            "value": "0"
+        },
+        {
+            "divisible": true,
+            "error": false,
+            "id": 0,
+            "pendingneg": "0",
+            "pendingpos": "0",
+            "symbol": "BTC",
+            "value": "214236735"
+        }
+    ]
+}
+</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-address-addr-details">
+                        /v1/address/addr/details/
+                        <a href="#request-v1-address-addr-details"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns the balance information and transaction history list for a given address</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-address-addr-details-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-address-addr-details-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-address-addr-details-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "addr=1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P" "https://api.omniexplorer.info/v1/address/addr/details/"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-address-addr-details-example-http">
+                                <pre><code class="hljs http">POST /v1/address/addr/details/ HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+addr=1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-address-addr-details-responses-a9096967-5dde-4e1c-9aea-1ee4e09e6f87" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-address-addr-details-responses-a9096967-5dde-4e1c-9aea-1ee4e09e6f87">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "address": "1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P",
+    "balance": [
+        {
+            "divisible": true,
+            "frozen": "0",
+            "id": "1",
+            "pendingneg": "0",
+            "pendingpos": "0",
+            "reserved": "0",
+            "symbol": "OMNI",
+            "value": "3054147959984"
+        },
+        {
+            "divisible": true,
+            "frozen": "0",
+            "id": "2",
+            "pendingneg": "0",
+            "pendingpos": "0",
+            "reserved": "0",
+            "symbol": "T-OMNI",
+            "value": "0"
+        },
+        {
+            "divisible": true,
+            "error": false,
+            "id": 0,
+            "pendingneg": "0",
+            "pendingpos": "0",
+            "symbol": "BTC",
+            "value": "214236735"
+        }
+    ],
+    "pages": 3,
+    "transactions": [
+        {
+            "amount": "0.00000100",
+            "block": 342733,
+            "blockhash": "000000000000000014a6858e7da93606ffe624331a2f295732c8c9499ffa1025",
+            "blocktime": 1423503818,
+            "confirmations": 176418,
+            "divisible": true,
+            "fee": "0.00001000",
+            "ismine": false,
+            "positioninblock": 1569,
+            "propertyid": 1,
+            "propertyname": "Omni",
+            "sendingaddress": "1F9jCeixNbK6GEkdQFq1ejkbJjAGwVVVqG",
+            "txid": "318fb016144f3dadb16acf39cd7e00089b808418f1c4b343926af55882824966",
+            "type": "Send To Owners",
+            "type_int": 3,
+            "valid": true,
+            "version": 0
+        },
+        {
+            "additional records": "..."
+        }
+    ]
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-armory-getunsigned">
+                        /v1/armory/getunsigned
+                        <a href="#request-v1-armory-getunsigned"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns the Armory encoded version of an unsigned transaction for use with Armory offline transactions.
+Data:
+unsigned_hex : raw bitcoin hex formatted tx to be converted
+pubkey : pubkey of the sending address</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-armory-getunsigned-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-armory-getunsigned-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-armory-getunsigned-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "unsigned_hex=01000000011c2d89d15d4853194e0e617e5d6d6d151752b09f72bf62a34453643270ebc763000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288acffffffff01d8d60000000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac00000000&pubkey=04ad90e5b6bc86b3ec7fac2c5fbda7423fc8ef0d58df594c773fa05e2c281b2bfe877677c668bd13603944e34f4818ee03cadd81a88542b8b4d5431264180e2c28" "https://api.omniexplorer.info/v1/armory/getunsigned"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-armory-getunsigned-example-http">
+                                <pre><code class="hljs http">POST /v1/armory/getunsigned HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+unsigned_hex=01000000011c2d89d15d4853194e0e617e5d6d6d151752b09f72bf62a34453643270ebc763000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288acffffffff01d8d60000000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac00000000&pubkey=04ad90e5b6bc86b3ec7fac2c5fbda7423fc8ef0d58df594c773fa05e2c281b2bfe877677c668bd13603944e34f4818ee03cadd81a88542b8b4d5431264180e2c28</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-armory-getunsigned-responses-efdde8c4-5488-41ef-84b0-276e9aefb802" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-armory-getunsigned-responses-efdde8c4-5488-41ef-84b0-276e9aefb802">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "armoryUnsigned": "=====TXSIGCOLLECT-7fK9x5wF======================================\nAQAAAPm+tNkAAAAAAf2gAQEAAAD5vrTZHC2J0V1IUxlODmF+XW1tFRdSsJ9yv2Kj\nRFNkMnDrx2MAAAAA/SUBAQAAAAHb6cvxUOY3xjmumbvja4ws2Y91+lIUyjV3kswG\nZmxHNAAAAABqRzBEAiAWH+zK7+MqKy/RpARlwAxlkGmB2oI5jwXCzwXlrgoDdwIg\nRIt5APjkheiGF64yCgGDXHpLdlB7cYRgvuEePdRvee0BIQIx3eVJDpRTFPeTFz1z\nD/sd7M8z0/5dZUFpNFHpPFrinv////8EYOoAAAAAAAAZdqkUlGyy4IB1vLrxV+R7\ny2frKyM50kKIrJB3dAEAAAAAGXapFJHmmj4F756OJPTktKHCmlUL83kWiKxg6gAA\nAAAAABl2qRSCgUFaaIQzk5laBF7zFYAlb2gEyYisYOoAAAAAAAAZdqkUgQAAAAAA\nAAACAAAAAAX14QAAAACIrAAAAAAAAAD/////AUEErZDltryGs+x/rCxfvadCP8jv\nDVjfWUx3P6BeLCgbK/6HdnfGaL0TYDlE409IGO4Dyt2BqIVCuLTVQxJkGA4sKAAA\nATQBAAAA+b602Rl2qRSUbLLggHW8uvFX5HvLZ+srIznSQois2NYAAAAAAAAAAARO\nT05FAAAAAAAAAA==\n================================================================"
+}
+</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-armory-getrawtransaction">
+                        /v1/armory/getrawtransaction
+                        <a href="#request-v1-armory-getrawtransaction"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Decodes and returns the raw hex and signed status from an armory transaction.
+Data:
+armory_tx : armory transaction in text format</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-armory-getrawtransaction-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-armory-getrawtransaction-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-armory-getrawtransaction-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "armory_tx======TXSIGCOLLECT-7fK9x5wF======================================
+AQAAAPm+tNkAAAAAAf2gAQEAAAD5vrTZHC2J0V1IUxlODmF+XW1tFRdSsJ9yv2Kj
+RFNkMnDrx2MAAAAA/SUBAQAAAAHb6cvxUOY3xjmumbvja4ws2Y91+lIUyjV3kswG
+ZmxHNAAAAABqRzBEAiAWH+zK7+MqKy/RpARlwAxlkGmB2oI5jwXCzwXlrgoDdwIg
+RIt5APjkheiGF64yCgGDXHpLdlB7cYRgvuEePdRvee0BIQIx3eVJDpRTFPeTFz1z
+D/sd7M8z0/5dZUFpNFHpPFrinv////8EYOoAAAAAAAAZdqkUlGyy4IB1vLrxV+R7
+y2frKyM50kKIrJB3dAEAAAAAGXapFJHmmj4F756OJPTktKHCmlUL83kWiKxg6gAA
+AAAAABl2qRSCgUFaaIQzk5laBF7zFYAlb2gEyYisYOoAAAAAAAAZdqkUgQAAAAAA
+AAACAAAAAAX14QAAAACIrAAAAAAAAAD/////AUEErZDltryGs+x/rCxfvadCP8jv
+DVjfWUx3P6BeLCgbK/6HdnfGaL0TYDlE409IGO4Dyt2BqIVCuLTVQxJkGA4sKAAA
+ATQBAAAA+b602Rl2qRSUbLLggHW8uvFX5HvLZ+srIznSQois2NYAAAAAAAAAAARO
+T05FAAAAAAAAAA==
+================================================================" "https://api.omniexplorer.info/v1/armory/getrawtransaction"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-armory-getrawtransaction-example-http">
+                                <pre><code class="hljs http">POST /v1/armory/getrawtransaction HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+armory_tx======TXSIGCOLLECT-7fK9x5wF======================================
+AQAAAPm+tNkAAAAAAf2gAQEAAAD5vrTZHC2J0V1IUxlODmF+XW1tFRdSsJ9yv2Kj
+RFNkMnDrx2MAAAAA/SUBAQAAAAHb6cvxUOY3xjmumbvja4ws2Y91+lIUyjV3kswG
+ZmxHNAAAAABqRzBEAiAWH+zK7+MqKy/RpARlwAxlkGmB2oI5jwXCzwXlrgoDdwIg
+RIt5APjkheiGF64yCgGDXHpLdlB7cYRgvuEePdRvee0BIQIx3eVJDpRTFPeTFz1z
+D/sd7M8z0/5dZUFpNFHpPFrinv////8EYOoAAAAAAAAZdqkUlGyy4IB1vLrxV+R7
+y2frKyM50kKIrJB3dAEAAAAAGXapFJHmmj4F756OJPTktKHCmlUL83kWiKxg6gAA
+AAAAABl2qRSCgUFaaIQzk5laBF7zFYAlb2gEyYisYOoAAAAAAAAZdqkUgQAAAAAA
+AAACAAAAAAX14QAAAACIrAAAAAAAAAD/////AUEErZDltryGs+x/rCxfvadCP8jv
+DVjfWUx3P6BeLCgbK/6HdnfGaL0TYDlE409IGO4Dyt2BqIVCuLTVQxJkGA4sKAAA
+ATQBAAAA+b602Rl2qRSUbLLggHW8uvFX5HvLZ+srIznSQois2NYAAAAAAAAAAARO
+T05FAAAAAAAAAA==
+================================================================</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-armory-getrawtransaction-responses-4cd4be00-961c-4083-a028-59dea8b36aac" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-armory-getrawtransaction-responses-4cd4be00-961c-4083-a028-59dea8b36aac">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "rawTransaction": "01000000011c2d89d15d4853194e0e617e5d6d6d151752b09f72bf62a34453643270ebc7630000000000ffffffff01d8d60000000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac00000000",
+    "signed": false
+}
+</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-decode">
+                        /v1/decode/
+                        <a href="#request-v1-decode"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Decodes raw hex returning Omni and Bitcoin transaction information</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-decode-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-decode-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-decode-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "hex=0100000001b8442ba55406897a5c5751d3b4bb841d1686dbf43de16e1f4d581a2274eecd8e000000006b483045022100ac16e6e938d1353440b88d41e7de9e7ef3d232fb8db04ed639885596d0f8df260220297fc6fb9d39d9042b859b07dd78b634827f8d541213c16c0d68b40b60739372012103124d5b2ba19187be886e4bfa4c5c66cbdac7c6249825ff4fa3c7e05479a08823feffffff030000000000000000166a146f6d6e69000000000000001f000000003b02338075910700000000001976a914025d87dd0602bd86308b354e038f82ba1e9fe94688ac22020000000000001976a91488d924f51033b74a895863a5fb57fd545529df7d88acf9eb0700" "https://api.omniexplorer.info/v1/decode/"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-decode-example-http">
+                                <pre><code class="hljs http">POST /v1/decode/ HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+hex=0100000001b8442ba55406897a5c5751d3b4bb841d1686dbf43de16e1f4d581a2274eecd8e000000006b483045022100ac16e6e938d1353440b88d41e7de9e7ef3d232fb8db04ed639885596d0f8df260220297fc6fb9d39d9042b859b07dd78b634827f8d541213c16c0d68b40b60739372012103124d5b2ba19187be886e4bfa4c5c66cbdac7c6249825ff4fa3c7e05479a08823feffffff030000000000000000166a146f6d6e69000000000000001f000000003b02338075910700000000001976a914025d87dd0602bd86308b354e038f82ba1e9fe94688ac22020000000000001976a91488d924f51033b74a895863a5fb57fd545529df7d88acf9eb0700</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-decode-responses-70efa62c-0f4a-43d2-ad93-8fd7c7d01d97" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-decode-responses-70efa62c-0f4a-43d2-ad93-8fd7c7d01d97">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "BTC": {
+        "hash": "5451c8e67d7ab3f947064337e8cf87c416f1fb163630913dcf307d4ca5d5ccaa",
+        "locktime": 519161,
+        "size": 257,
+        "txid": "5451c8e67d7ab3f947064337e8cf87c416f1fb163630913dcf307d4ca5d5ccaa",
+        "version": 1,
+        "vin": [
+            {
+                "scriptSig": {
+                    "asm": "3045022100ac16e6e938d1353440b88d41e7de9e7ef3d232fb8db04ed639885596d0f8df260220297fc6fb9d39d9042b859b07dd78b634827f8d541213c16c0d68b40b60739372[ALL] 03124d5b2ba19187be886e4bfa4c5c66cbdac7c6249825ff4fa3c7e05479a08823",
+                    "hex": "483045022100ac16e6e938d1353440b88d41e7de9e7ef3d232fb8db04ed639885596d0f8df260220297fc6fb9d39d9042b859b07dd78b634827f8d541213c16c0d68b40b60739372012103124d5b2ba19187be886e4bfa4c5c66cbdac7c6249825ff4fa3c7e05479a08823"
+                },
+                "sequence": 4294967294,
+                "txid": "8ecdee74221a584d1f6ee13df4db86161d84bbb4d351575c7a890654a52b44b8",
+                "vout": 0
+            }
+        ],
+        "vout": [
+            {
+                "n": 0,
+                "scriptPubKey": {
+                    "asm": "OP_RETURN 6f6d6e69000000000000001f000000003b023380",
+                    "hex": "6a146f6d6e69000000000000001f000000003b023380",
+                    "type": "nulldata"
+                },
+                "value": 0.0
+            },
+            {
+                "n": 1,
+                "scriptPubKey": {
+                    "addresses": [
+                        "1DWQ1gZ8VhL1fUCABqKbXtUZv63roGvXf"
+                    ],
+                    "asm": "OP_DUP OP_HASH160 025d87dd0602bd86308b354e038f82ba1e9fe946 OP_EQUALVERIFY OP_CHECKSIG",
+                    "hex": "76a914025d87dd0602bd86308b354e038f82ba1e9fe94688ac",
+                    "reqSigs": 1,
+                    "type": "pubkeyhash"
+                },
+                "value": 0.00495989
+            },
+            {
+                "n": 2,
+                "scriptPubKey": {
+                    "addresses": [
+                        "1DUb2YYbQA1jjaNYzVXLZ7ZioEhLXtbUru"
+                    ],
+                    "asm": "OP_DUP OP_HASH160 88d924f51033b74a895863a5fb57fd545529df7d OP_EQUALVERIFY OP_CHECKSIG",
+                    "hex": "76a91488d924f51033b74a895863a5fb57fd545529df7d88ac",
+                    "reqSigs": 1,
+                    "type": "pubkeyhash"
+                },
+                "value": 5.46e-06
+            }
+        ],
+        "vsize": 257
+    },
+    "OMNI": {
+        "amount": "9.90000000",
+        "confirmations": 0,
+        "divisible": true,
+        "fee": "0.00003465",
+        "ismine": false,
+        "propertyid": 31,
+        "referenceaddress": "1DUb2YYbQA1jjaNYzVXLZ7ZioEhLXtbUru",
+        "sendingaddress": "1DWQ1gZ8VhL1fUCABqKbXtUZv63roGvXf",
+        "txid": "5451c8e67d7ab3f947064337e8cf87c416f1fb163630913dcf307d4ca5d5ccaa",
+        "type": "Simple Send",
+        "type_int": 0,
+        "version": 0
+    },
+    "Reference": "1DUb2YYbQA1jjaNYzVXLZ7ZioEhLXtbUru",
+    "Sender": "1DWQ1gZ8VhL1fUCABqKbXtUZv63roGvXf",
+    "error": "None",
+    "inputs": {
+        "1DWQ1gZ8VhL1fUCABqKbXtUZv63roGvXf": 500000
+    }
+}
+</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-omnidex-designatingcurrencies">
+                        /v1/omnidex/designatingcurrencies
+                        <a href="#request-v1-omnidex-designatingcurrencies"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Return a list of currently active/available base currencies the omnidex has open orders against.
+Data:
+ecosystem : 1 for main / production ecosystem or 2 for test/development ecosystem</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-omnidex-designatingcurrencies-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-omnidex-designatingcurrencies-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-omnidex-designatingcurrencies-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "ecosystem=1" "https://api.omniexplorer.info/v1/omnidex/designatingcurrencies"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-omnidex-designatingcurrencies-example-http">
+                                <pre><code class="hljs http">POST /v1/omnidex/designatingcurrencies HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+ecosystem=1</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-omnidex-designatingcurrencies-responses-1e4c0d05-f376-4072-8116-1dc049f9b149" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-omnidex-designatingcurrencies-responses-1e4c0d05-f376-4072-8116-1dc049f9b149">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "currencies": [
+        {
+            "displayname": "Omni #1",
+            "propertyid": 1,
+            "propertyname": "Omni"
+        },
+        {
+            "displayname": "MaidSafeCoin #3",
+            "propertyid": 3,
+            "propertyname": "MaidSafeCoin"
+        },
+        {
+            "displayname": "TetherUS #31",
+            "propertyid": 31,
+            "propertyname": "TetherUS"
+        },
+        {
+            "additional records": "..."
+        }
+    ],
+    "status": 200
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-properties-gethistory-property-id">
+                        /v1/properties/gethistory/<property id>
+                        <a href="#request-v1-properties-gethistory-property-id"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns list of transactions (up to 10 per page) relevant to queried Property ID.
+Returned transaction types include:
+Creation Tx,
+Change issuer txs,
+Grant Txs,
+Revoke Txs,
+Crowdsale Participation Txs,
+Close Crowdsale earlier tx</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-properties-gethistory-property-id-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-properties-gethistory-property-id-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-properties-gethistory-property-id-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "page=0" "https://api.omniexplorer.info/v1/properties/gethistory/3"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-properties-gethistory-property-id-example-http">
+                                <pre><code class="hljs http">POST /v1/properties/gethistory/3 HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+page=0</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-properties-gethistory-property-id-responses-f6faed79-edbe-4baa-aefd-ce5a772e01ce" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-properties-gethistory-property-id-responses-f6faed79-edbe-4baa-aefd-ce5a772e01ce">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "pages": 19,
+    "total": 193,
+    "transactions": [
+        {
+            "amount": "0",
+            "block": 297115,
+            "blockhash": "00000000000000004c93a71e1b0dd876c07cbc5ebd385ff8e5ba8379ffa1e377",
+            "blocktime": 1398154020,
+            "category": "Crowdsale",
+            "confirmations": 213140,
+            "data": "SAFE Network Crowdsale (MSAFE)",
+            "deadline": 1400749200,
+            "divisible": false,
+            "earlybonus": 10,
+            "ecosystem": "main",
+            "fee": "0.00010001",
+            "ismine": false,
+            "percenttoissuer": 0,
+            "positioninblock": 215,
+            "propertyid": 3,
+            "propertyiddesired": 1,
+            "propertyname": "MaidSafeCoin",
+            "propertytype": "indivisible",
+            "sendingaddress": "1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu",
+            "subcategory": "MaidSafe",
+            "tokensperunit": "0.00003400",
+            "txid": "86f214055a7f4f5057922fd1647e00ef31ab0a3ff15217f8b90e295f051873a7",
+            "type": "Create Property - Variable",
+            "type_int": 51,
+            "url": "www.buysafecoins.com",
+            "valid": true,
+            "version": 0
+        },
+        {
+            "amount": "100.00000000",
+            "block": 297117,
+            "blockhash": "00000000000000002cf2f281f4a69c6757f9e468fd30b50c5c85433a7b17b1c5",
+            "blocktime": 1398155998,
+            "confirmations": 213138,
+            "divisible": true,
+            "fee": "0.00050000",
+            "ismine": false,
+            "issuertokens": "0",
+            "positioninblock": 83,
+            "propertyid": 1,
+            "purchasedpropertydivisible": false,
+            "purchasedpropertyid": 3,
+            "purchasedpropertyname": "MaidSafeCoin",
+            "purchasedtokens": "485781",
+            "referenceaddress": "1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu",
+            "sendingaddress": "1LEVELTb6dkZmsUXgQE8nqc8naAVotX86D",
+            "txid": "4ec15360a03d23c069c2fd4a035cfee28af5ddfdd5a6839934dd2629129d477e",
+            "type": "Crowdsale Purchase",
+            "type_int": 0,
+            "valid": true,
+            "version": 0
+        },
+        {
+            "additional records": "..."
+        }
+    ]
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-properties-listbyowner">
+                        /v1/properties/listbyowner
+                        <a href="#request-v1-properties-listbyowner"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Return list of properties created by a queried address.</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-properties-listbyowner-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-properties-listbyowner-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-properties-listbyowner-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "addresses=1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu" "https://api.omniexplorer.info/v1/properties/listbyowner"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-properties-listbyowner-example-http">
+                                <pre><code class="hljs http">POST /v1/properties/listbyowner HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+addresses=1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-properties-listbyowner-responses-25bac350-76bf-4c2c-9e4e-8f92b1c0fbfc" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-properties-listbyowner-responses-25bac350-76bf-4c2c-9e4e-8f92b1c0fbfc">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "properties": [
+        {
+            "active": false,
+            "addedissuertokens": "0",
+            "amount": "0",
+            "amountraised": "93249.21601551",
+            "block": 297115,
+            "blockhash": "00000000000000004c93a71e1b0dd876c07cbc5ebd385ff8e5ba8379ffa1e377",
+            "blocktime": 1398154020,
+            "category": "Crowdsale",
+            "closedearly": true,
+            "closetx": "b8864525a2eef4f76a58f33a4af50dc24461445e1a420e21bcc99a1901740e79",
+            "confirmations": 213140,
+            "creationtxid": "86f214055a7f4f5057922fd1647e00ef31ab0a3ff15217f8b90e295f051873a7",
+            "data": "SAFE Network Crowdsale (MSAFE)",
+            "deadline": 1400749200,
+            "divisible": false,
+            "earlybonus": 10,
+            "ecosystem": "main",
+            "endedtime": 1398173740,
+            "fee": "0.00010001",
+            "fixedissuance": false,
+            "ismine": false,
+            "issuer": "1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu",
+            "managedissuance": false,
+            "maxtokens": false,
+            "name": "MaidSafeCoin",
+            "percenttoissuer": 0,
+            "positioninblock": 215,
+            "propertyid": 3,
+            "propertyiddesired": 1,
+            "propertyname": "MaidSafeCoin",
+            "propertytype": "indivisible",
+            "sendingaddress": "1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu",
+            "starttime": 1398154020,
+            "subcategory": "MaidSafe",
+            "tokensissued": "452552412",
+            "tokensperunit": "3400",
+            "totaltokens": "452552412",
+            "txid": "86f214055a7f4f5057922fd1647e00ef31ab0a3ff15217f8b90e295f051873a7",
+            "type": "Create Property - Variable",
+            "type_int": 51,
+            "url": "www.buysafecoins.com",
+            "valid": true,
+            "version": 0
+        }
+    ],
+    "status": "OK"
+}
+</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-properties-listactivecrowdsales">
+                        /v1/properties/listactivecrowdsales
+                        <a href="#request-v1-properties-listactivecrowdsales"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns list of currently active crowdsales.
+Data:
+ecosystem : 1 for production/main ecosystem. 2 for test/dev ecosystem</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-properties-listactivecrowdsales-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-properties-listactivecrowdsales-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-properties-listactivecrowdsales-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "ecosystem=1" "https://api.omniexplorer.info/v1/properties/listactivecrowdsales"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-properties-listactivecrowdsales-example-http">
+                                <pre><code class="hljs http">POST /v1/properties/listactivecrowdsales HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+ecosystem=1</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-properties-listactivecrowdsales-responses-6dc8c437-8a70-421b-a0d1-4253cc4cb118" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-properties-listactivecrowdsales-responses-6dc8c437-8a70-421b-a0d1-4253cc4cb118">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "crowdsales": [
+        {
+            "active": true,
+            "amountraised": "300000000",
+            "category": "Proof of Stake",
+            "creationtxid": "b01d1594a7e2083ebcd428706045df003f290c4dc7bd6d77c93df9fcca68232f",
+            "data": "Introducing ProzCoin which utilizes the new Proof of Action algorithm.  PoA pays users for article submission, moderating forums, interaction and participation.  PoA adjusts to pay out higher rates for higher quality content based on user ratings.",
+            "deadline": 1406967060000,
+            "divisible": true,
+            "earlybonus": 0,
+            "fixedissuance": false,
+            "issuer": "1PRozi3UhpXtC4kZtPD1nfCFXJkXrV27Wp",
+            "name": "ProzCoin",
+            "percenttoissuer": 100,
+            "propertyid": 28,
+            "propertyiddesired": 24,
+            "propertyiddesiredname": "BitStrapAccessToken",
+            "starttime": 1406925999,
+            "subcategory": "Proof of Action",
+            "tokensissued": "600000000.00000000",
+            "tokensperunit": "100000000.00000000",
+            "totaltokens": "600000000.00000000",
+            "url": "http://Coinproz.com/Coinpage.html?alt=proz"
+        },
+        {
+            "additional records": "..."
+        }
+    ],
+    "status": "OK"
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-properties-listbyecosystem">
+                        /v1/properties/listbyecosystem
+                        <a href="#request-v1-properties-listbyecosystem"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>returns list of created properties filtered by ecosystem.
+Data:
+ecosystem : 1 for production/main ecosystem. 2 for test/dev ecosystem</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-properties-listbyecosystem-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-properties-listbyecosystem-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-properties-listbyecosystem-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "ecosystem=1" "https://api.omniexplorer.info/v1/properties/listbyecosystem"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-properties-listbyecosystem-example-http">
+                                <pre><code class="hljs http">POST /v1/properties/listbyecosystem HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+ecosystem=1</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-properties-listbyecosystem-responses-e045326e-4f02-4a9f-b3e3-d93fa38f2c90" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-properties-listbyecosystem-responses-e045326e-4f02-4a9f-b3e3-d93fa38f2c90">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "properties": [
+        {
+            "blocktime": 1377994675,
+            "category": "N/A",
+            "creationtxid": "0000000000000000000000000000000000000000000000000000000000000000",
+            "data": "Omni serve as the binding between Bitcoin, smart properties and contracts created on the Omni Layer.",
+            "divisible": true,
+            "fixedissuance": false,
+            "issuer": "1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P",
+            "managedissuance": false,
+            "name": "Omni",
+            "propertyid": 1,
+            "subcategory": "N/A",
+            "totaltokens": "617211.68177584",
+            "url": "http://www.omnilayer.org"
+        },
+        {
+            "additional records": "..."
+        }
+    ],
+    "status": "OK"
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-properties-list">
+                        /v1/properties/list
+                        <a href="#request-v1-properties-list"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns list of all created properties.</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-properties-list-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-properties-list-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-properties-list-example-curl">
+                                <pre><code class="hljs curl">curl -X GET -H "Content-Type: application/x-www-form-urlencoded" "https://api.omniexplorer.info/v1/properties/list"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-properties-list-example-http">
+                                <pre><code class="hljs http">GET /v1/properties/list HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-properties-list-responses-a496929e-e779-448b-aabb-23dc1ab2b6bb" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-properties-list-responses-a496929e-e779-448b-aabb-23dc1ab2b6bb">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "properties": [
+        {
+            "blocktime": 1377994675,
+            "category": "N/A",
+            "creationtxid": "0000000000000000000000000000000000000000000000000000000000000000",
+            "data": "Omni serve as the binding between Bitcoin, smart properties and contracts created on the Omni Layer.",
+            "divisible": true,
+            "fixedissuance": false,
+            "issuer": "1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P",
+            "managedissuance": false,
+            "name": "Omni",
+            "propertyid": 1,
+            "subcategory": "N/A",
+            "totaltokens": "617211.68177584",
+            "url": "http://www.omnilayer.org"
+        },
+        {
+            "blocktime": 1377994675,
+            "category": "N/A",
+            "creationtxid": "0000000000000000000000000000000000000000000000000000000000000000",
+            "data": "Test Omni serve as the binding between Bitcoin, smart properties and contracts created on the Omni Layer.",
+            "divisible": true,
+            "fixedissuance": false,
+            "issuer": "1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P",
+            "managedissuance": false,
+            "name": "Test Omni",
+            "propertyid": 2,
+            "subcategory": "N/A",
+            "totaltokens": "563162.35759628",
+            "url": "http://www.omnilayer.org"
+        },
+        {
+            "additional records": "..."
+        }
+    ],
+    "status": "OK"
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-search">
+                        /v1/search
+                        <a href="#request-v1-search"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Search by transaction id, address or property id.
+Data:
+query : text string of either Transaction ID, Address, or property id to search for</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-search-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-search-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-search-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "query=3" "https://api.omniexplorer.info/v1/search"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-search-example-http">
+                                <pre><code class="hljs http">POST /v1/search HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+query=3</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-search-responses-b41c0e99-6077-4e0e-9952-2e82f9f10fd4" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-search-responses-b41c0e99-6077-4e0e-9952-2e82f9f10fd4">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "data": {
+        "address": {},
+        "asset": [
+            [
+                3,
+                "MaidSafeCoin",
+                "1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu"
+            ]
+        ],
+        "tx": {}
+    },
+    "query": "3",
+    "status": 200
+}
+</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-transaction-address">
+                        /v1/transaction/address
+                        <a href="#request-v1-transaction-address"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns list of transactions for queried address.
+Data:
+addr : address to query
+page : cycle through available response pages (10 txs per page)</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-transaction-address-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-transaction-address-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-transaction-address-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "addr=1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P&page=0" "https://api.omniexplorer.info/v1/transaction/address"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-transaction-address-example-http">
+                                <pre><code class="hljs http">POST /v1/transaction/address HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+addr=1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P&page=0</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-transaction-address-responses-c3a8f845-62e9-4a5e-bd77-f6daf2fbde80" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-transaction-address-responses-c3a8f845-62e9-4a5e-bd77-f6daf2fbde80">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "address": "1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P",
+    "pages": 3,
+    "transactions": [
+        {
+            "amount": "0.00000100",
+            "block": 342733,
+            "blockhash": "000000000000000014a6858e7da93606ffe624331a2f295732c8c9499ffa1025",
+            "blocktime": 1423503818,
+            "confirmations": 176424,
+            "divisible": true,
+            "fee": "0.00001000",
+            "ismine": false,
+            "positioninblock": 1569,
+            "propertyid": 1,
+            "propertyname": "Omni",
+            "sendingaddress": "1F9jCeixNbK6GEkdQFq1ejkbJjAGwVVVqG",
+            "txid": "318fb016144f3dadb16acf39cd7e00089b808418f1c4b343926af55882824966",
+            "type": "Send To Owners",
+            "type_int": 3,
+            "valid": true,
+            "version": 0
+        },
+        {
+            "additional records": "..."
+        }
+    ]
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-transaction-pushtx">
+                        /v1/transaction/pushtx/
+                        <a href="#request-v1-transaction-pushtx"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Broadcast a signed transaction to the network.
+Data:
+signedTransaction : signed hex to broadcast</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-transaction-pushtx-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-transaction-pushtx-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-transaction-pushtx-example-curl">
+                                <pre><code class="hljs curl">curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Content-Type: application/x-www-form-urlencoded" -d "signedTransaction=01000000010b7ad3946c6fcd15d39fd4312c4f8dfd68c51a61071c2575cfb0722c4403eef1000000008a47304402206fe4eabf81cc4c6c3cee3dedc6ea9be46bb685c1b61da577bb9aead8188b80b702201404284c52ad2e857bd3931fb0e1646575d1e72c93b2cdcd80a7e0c7bee1c191014104ad90e5b6bc86b3ec7fac2c5fbda7423fc8ef0d58df594c773fa05e2c281b2bfe877677c668bd13603944e34f4818ee03cadd81a88542b8b4d5431264180e2c28ffffffff0470170000000000001976a9143b0000000000000001000000009d828d9600000088ac70170000000000001976a9143c791cc99255509d85788e2bf0e0f6e8b389b3cf88ac40355d5f000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac70170000000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac00000000" "https://api.omniexplorer.info/v1/transaction/pushtx/"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-transaction-pushtx-example-http">
+                                <pre><code class="hljs http">POST /v1/transaction/pushtx/ HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded
+
+signedTransaction=01000000010b7ad3946c6fcd15d39fd4312c4f8dfd68c51a61071c2575cfb0722c4403eef1000000008a47304402206fe4eabf81cc4c6c3cee3dedc6ea9be46bb685c1b61da577bb9aead8188b80b702201404284c52ad2e857bd3931fb0e1646575d1e72c93b2cdcd80a7e0c7bee1c191014104ad90e5b6bc86b3ec7fac2c5fbda7423fc8ef0d58df594c773fa05e2c281b2bfe877677c668bd13603944e34f4818ee03cadd81a88542b8b4d5431264180e2c28ffffffff0470170000000000001976a9143b0000000000000001000000009d828d9600000088ac70170000000000001976a9143c791cc99255509d85788e2bf0e0f6e8b389b3cf88ac40355d5f000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac70170000000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac00000000</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-transaction-pushtx-responses-bf01be8b-f7e4-4637-930c-95e7bffda3fe" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-transaction-pushtx-responses-bf01be8b-f7e4-4637-930c-95e7bffda3fe">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "status": "OK",
+    "pushed": "Success",
+    "tx": "9975dcd1f574fe8356183e34eb435df6aa5620e7f9fea98a3c2349a10383a62b"
+}</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-v1-transaction-tx-txhash">
+                        /v1/transaction/tx/<txhash>
+                        <a href="#request-v1-transaction-tx-txhash"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Returns transaction details of a queried transaction hash.</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-v1-transaction-tx-txhash-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-v1-transaction-tx-txhash-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-v1-transaction-tx-txhash-example-curl">
+                                <pre><code class="hljs curl">curl -X GET -H "Content-Type: application/x-www-form-urlencoded" "https://api.omniexplorer.info/v1/transaction/tx/e0e3749f4855c341b5139cdcbb4c6b492fcc09c49021b8b15462872b4ba69d1b"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-v1-transaction-tx-txhash-example-http">
+                                <pre><code class="hljs http">GET /v1/transaction/tx/e0e3749f4855c341b5139cdcbb4c6b492fcc09c49021b8b15462872b4ba69d1b HTTP/1.1
+Host: api.omniexplorer.info
+Content-Type: application/x-www-form-urlencoded</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            
+                            <li role="presentation" class="active">
+                                <a href="#request-v1-transaction-tx-txhash-responses-e84b7076-f0e8-447a-ae72-22c183e6c334" data-toggle="tab">
+                                    
+                                    Response
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="request-v1-transaction-tx-txhash-responses-e84b7076-f0e8-447a-ae72-22c183e6c334">
+                                <table class="table table-bordered">
+                                    <tr><th style="width: 20%;">Status</th><td>200 </td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Encoding</th><td>gzip</td></tr>
+                                    
+                                    <tr><th style="width: 20%;">Content-Type</th><td>application/json</td></tr>
+                                    
+                                    
+                                    
+                                    <tr><td class="response-text-sample" colspan="2">
+                                        <pre><code>{
+    "amount": "6167.00000000",
+    "block": 511660,
+    "blockhash": "0000000000000000003f37e72e599fbdaa14396a2e9251e493f0d7d15b1fd915",
+    "blocktime": 1520009505,
+    "confirmations": 7499,
+    "divisible": true,
+    "fee": "0.00009124",
+    "ismine": false,
+    "positioninblock": 825,
+    "propertyid": 31,
+    "propertyname": "TetherUS",
+    "referenceaddress": "3GyeFJmQynJWd8DeACm4cdEnZcckAtrfcN",
+    "sendingaddress": "3D4r9ERiM3HSc4eC4EhcT31tXoSV96HsPg",
+    "txid": "e0e3749f4855c341b5139cdcbb4c6b492fcc09c49021b8b15462872b4ba69d1b",
+    "type": "Simple Send",
+    "type_int": 0,
+    "valid": true,
+    "version": 0
+}
+</code></pre>
+                                    </td></tr>
+                                    
+                                    
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+                </div>
+                
+
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("table:not(.table)").addClass('table table-bordered');
+    });
+</script>
+</body>
+</html>
