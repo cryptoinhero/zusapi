@@ -230,7 +230,7 @@ def update_valuebook():
           rate=v[5]
           tstamp=str(v[6])
           source=v[7]
-          if p1=='Zurcoin' and p2=='Omni':
+          if p1=='Zurcoin' and p2=='Zurshares':
             if pid2==1:
               symbol="ZUS"
             else:

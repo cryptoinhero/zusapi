@@ -324,7 +324,7 @@ def getrecentclassab():
       print_debug(("cache looked failed",ckey),7)
 
       limit = 50
-      ROWS=dbSelect("select txj.txdata from txjson txj,transactions tx where tx.txdbserialnum = txj.txdbserialnum and txj.protocol = 'Omni' and (tx.txclass = 1 or tx.txclass = 2) and txj.txdbserialnum > 0 order by txj.txdbserialnum DESC limit %s;",[limit])
+      ROWS=dbSelect("select txj.txdata from txjson txj,transactions tx where tx.txdbserialnum = txj.txdbserialnum and txj.protocol = 'Zurshares' and (tx.txclass = 1 or tx.txclass = 2) and txj.txdbserialnum > 0 order by txj.txdbserialnum DESC limit %s;",[limit])
 
       data = []
       pnl=getpropnamelist()
@@ -426,10 +426,10 @@ def getrecenttxpages(page=1):
         pass
 
       #if filter==9999:
-      ROWS=dbSelect("select txdata from txjson txj where protocol = 'Omni' and txdbserialnum > 0 order by txdbserialnum DESC offset %s limit %s;",(offset,limit))
+      ROWS=dbSelect("select txdata from txjson txj where protocol = 'Zurshares' and txdbserialnum > 0 order by txdbserialnum DESC offset %s limit %s;",(offset,limit))
       #else:
       #  ROWS=dbSelect("select txdata from txjson where cast(txdata->>'type_int' as numeric) = ANY(%s) and "
-      #                "protocol = 'Omni' and txdbserialnum > 0 order by txdbserialnum DESC offset %s limit %s;",(tx_type,offset,limit))
+      #                "protocol = 'Zurshares' and txdbserialnum > 0 order by txdbserialnum DESC offset %s limit %s;",(tx_type,offset,limit))
 
       data = []
       pnl=getpropnamelist()
@@ -504,9 +504,9 @@ def getrawpending(addr=None):
     except:
       print_debug(("cache looked failed",ckey),7)
       if addr is not None:
-        ROWS=dbSelect("select txj.txdata, extract(epoch from tx.txrecvtime) from txjson txj,transactions tx,addressesintxs atx where tx.txdbserialnum=txj.txdbserialnum and atx.txdbserialnum=txj.txdbserialnum and atx.address=%s and txj.protocol = 'Omni' and txj.txdbserialnum < 0 order by txj.txdbserialnum ASC limit 25;",[addr])
+        ROWS=dbSelect("select txj.txdata, extract(epoch from tx.txrecvtime) from txjson txj,transactions tx,addressesintxs atx where tx.txdbserialnum=txj.txdbserialnum and atx.txdbserialnum=txj.txdbserialnum and atx.address=%s and txj.protocol = 'Zurshares' and txj.txdbserialnum < 0 order by txj.txdbserialnum ASC limit 25;",[addr])
       else:
-        ROWS=dbSelect("select txj.txdata, extract(epoch from tx.txrecvtime) from txjson txj,transactions tx where tx.txdbserialnum=txj.txdbserialnum and txj.protocol = 'Omni' and txj.txdbserialnum < 0 order by txj.txdbserialnum ASC limit 25;")
+        ROWS=dbSelect("select txj.txdata, extract(epoch from tx.txrecvtime) from txjson txj,transactions tx where tx.txdbserialnum=txj.txdbserialnum and txj.protocol = 'Zurshares' and txj.txdbserialnum < 0 order by txj.txdbserialnum ASC limit 25;")
       data = []
       index = {}
       pnl=getpropnamelist()
@@ -988,7 +988,7 @@ def getName(propertyid):
    name = 'Test Zurshares tokens #2'
   else:
     try:
-      ROWS=dbSelect("select propertyname from smartproperties where protocol='Omni' and propertyid=%s",[int(propertyid)])
+      ROWS=dbSelect("select propertyname from smartproperties where protocol='Zurshares' and propertyid=%s",[int(propertyid)])
       name = ROWS[0][0]+" #"+str(propertyid)
     except:
       name = "#"+str(propertyid)

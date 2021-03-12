@@ -74,7 +74,7 @@ def insertomni(rawtx):
     txtype = rawtx['MP']['type_int']
     txversion = rawtx['MP']['version']
     txhash = rawtx['ZUR']['txid']
-    protocol = "Omni"
+    protocol = "Zurshares"
     addresstxindex=0
     txdbserialnum = dbSelect("select least(-1,min(txdbserialnum)) from transactions;")[0][0]
     txdbserialnum -= 1

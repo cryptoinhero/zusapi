@@ -22,7 +22,7 @@ def getValueBook(pmaxid=0):
                   "and er.asof=vlist.asof) rates "
                 "on CASE WHEN rates.protocol1='Fiat' "
                   "THEN rates.propertyid1=sp.propertyid and sp.protocol='Fiat' "
-                  "ELSE rates.propertyid2=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Zurcoin') END")
+                  "ELSE rates.propertyid2=sp.propertyid and (sp.protocol='Zurshares' or sp.protocol='Zurcoin') END")
   return book,ERMAX
 
 @app.route('/<currency>')
@@ -44,7 +44,7 @@ def getCurrentPriceRaw(input):
   if input[:2].upper() == "SP":
     protocol1='Zurcoin'
     pid1=getPropertyid('ZUR', protocol1)
-    protocol2 = 'Omni'
+    protocol2 = 'Zurshares'
     #strip off the SP and grab just the numbers
     pid2=input[2:]
 
@@ -67,14 +67,14 @@ def getCurrentPriceRaw(input):
   elif input == 'ZUS':
     protocol1='Zurcoin'
     pid1=getPropertyid('ZUR', protocol1)
-    protocol2='Omni'
+    protocol2='Zurshares'
     #strip off the SP and grab just the numbers
     pid2=1
 
   elif input == 'T-ZUS':
     protocol1='Zurcoin'
     pid1=getPropertyid('ZUR', protocol1)
-    protocol2='Omni'
+    protocol2='Zurshares'
     #strip off the SP and grab just the numbers
     pid2=2
 
@@ -140,7 +140,7 @@ def history(currency=None):
   if input[:2].upper() == "SP":
     protocol1='Zurcoin'
     pid1=getPropertyid('ZUR', protocol1)
-    protocol2='Omni'
+    protocol2='Zurshares'
     #strip off the SP and grab just the numbers
     pid2=input[2:]
 
@@ -163,14 +163,14 @@ def history(currency=None):
   elif input == 'ZUS':
     protocol1='Zurcoin'
     pid1=getPropertyid('ZUR', protocol1)
-    protocol2='Omni'
+    protocol2='Zurshares'
     #strip off the SP and grab just the numbers
     pid2=getPropertyid('ZUS', protocol2)
 
   elif input == 'T-ZUS':
     protocol1='Zurcoin'
     pid1=getPropertyid('ZUR', protocol1)
-    protocol2='Omni'
+    protocol2='Zurshares'
     #strip off the SP and grab just the numbers
     pid2=getPropertyid('T-ZUS', protocol2)
 

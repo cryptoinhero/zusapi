@@ -96,7 +96,7 @@ def getBalanceData(address,btcdata):
                              atx.propertyid) s2
                         on s1.propertyid=s2.propertyid) f1
                      inner join smartproperties sp
-                     on f1.propertyid=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Zurcoin')
+                     on f1.propertyid=sp.propertyid and (sp.protocol='Zurshares' or sp.protocol='Zurcoin')
                      order by f1.propertyid""",(addr,addr))
       balance_data = { 'balance': [] }
       for balrow in ROWS:

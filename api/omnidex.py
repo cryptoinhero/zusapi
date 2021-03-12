@@ -115,7 +115,7 @@ def getDesignatingCurrencies():
 def getDesignatingCurrenciesOmniExchange(ecosystem,filter):
     print "getDesignatingCurrenciesOmniExchange",ecosystem,filter
 
-    designating_currencies = dbSelect("select sp.propertyid, sp.propertyname, sp.propertytype from smartproperties sp where sp.protocol='Omni' and "
+    designating_currencies = dbSelect("select sp.propertyid, sp.propertyname, sp.propertytype from smartproperties sp where sp.protocol='Zurshares' and "
                                       "sp.propertyid in (select distinct(propertyidselling) from activeoffers where offerstate='active' and propertyiddesired=0 and "
                                       "CASE WHEN %s='Production' THEN "
                                       "propertyidselling > 0 and propertyidselling < 2147483648 and propertyidselling !=2 "
@@ -148,7 +148,7 @@ def getDesignatingCurrenciesOmniDex(ecosystem,filter):
     except:
       print_debug(("cache looked failed",ckey),7)
       designating_currencies = dbSelect("select distinct m.propertyiddesired,m.desiredname,sp.propertytype from markets m, smartproperties sp where "
-                                      "m.propertyiddesired=sp.propertyid and sp.protocol='Omni' and "
+                                      "m.propertyiddesired=sp.propertyid and sp.protocol='Zurshares' and "
                                       "CASE WHEN %s='Production' THEN "
                                       "m.propertyiddesired > 0 and m.propertyiddesired < 2147483648 and m.propertyiddesired !=2 "
                                       "ELSE m.propertyiddesired > 2147483650 or m.propertyiddesired=2 END "

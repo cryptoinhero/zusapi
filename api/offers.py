@@ -81,7 +81,7 @@ def getName(propertyid):
    name = 'Test Zurshares tokens #2'
   else:
     try:
-      ROWS=dbSelect("select propertyname from smartproperties where protocol='Omni' and propertyid=%s",[int(propertyid)])
+      ROWS=dbSelect("select propertyname from smartproperties where protocol='Zurshares' and propertyid=%s",[int(propertyid)])
       name = ROWS[0][0]+" #"+str(propertyid)
     except:
       name = "#"+str(propertyid)

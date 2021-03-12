@@ -48,7 +48,7 @@ def getpropertyraw(prop_id):
   except:
     print_debug(("cache looked failed",ckey),7)
     if property_ in [0,1,2]:
-      ROWS=dbSelect("select propertydata,registrationdata,flags from smartproperties sp where (protocol='Zurcoin' or protocol='Omni') and sp.propertyid=%s",[property_])
+      ROWS=dbSelect("select propertydata,registrationdata,flags from smartproperties sp where (protocol='Zurcoin' or protocol='Zurshares') and sp.propertyid=%s",[property_])
 
       try:
         ret=json.loads(ROWS[0][0])
@@ -222,9 +222,9 @@ def getpropdistraw(prop_id,frozen=False):
   except:
     print_debug(("cache looked failed",ckey),7)
     if (frozen):
-      ROWS= dbSelect("select address, balanceavailable, balancereserved, balancefrozen from addressbalances where propertyid=%s and protocol='Omni' and (balancefrozen>0)", [property_])
+      ROWS= dbSelect("select address, balanceavailable, balancereserved, balancefrozen from addressbalances where propertyid=%s and protocol='Zurshares' and (balancefrozen>0)", [property_])
     else:
-      ROWS= dbSelect("select address, balanceavailable, balancereserved, balancefrozen from addressbalances where propertyid=%s and protocol='Omni' and (balanceavailable>0 or balancereserved>0 or balancefrozen>0)", [property_])
+      ROWS= dbSelect("select address, balanceavailable, balancereserved, balancefrozen from addressbalances where propertyid=%s and protocol='Zurshares' and (balanceavailable>0 or balancereserved>0 or balancefrozen>0)", [property_])
 
     response=[]
     divisible=getpropertyraw(str(property_))['divisible']
