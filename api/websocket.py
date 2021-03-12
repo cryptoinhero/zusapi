@@ -230,16 +230,16 @@ def update_valuebook():
           rate=v[5]
           tstamp=str(v[6])
           source=v[7]
-          if p1=='Bitcoin' and p2=='Omni':
+          if p1=='Zurcoin' and p2=='Omni':
             if pid2==1:
-              symbol="OMNI"
+              symbol="ZUS"
             else:
               symbol="SP"+str(pid2)
-          elif p1=='Fiat' and p2=='Bitcoin':
-            #symbol="BTC"
+          elif p1=='Fiat' and p2=='Zurcoin':
+            #symbol="ZUR"
             #if pid1>0 or pid2>0:
             #  symbol=symbol+str(name)
-            symbol="BTC"+str(name)
+            symbol="ZUR"+str(name)
           else:
             symbol=name+str(pid2)
           valuebook[symbol]={"price":rate,"symbol":symbol,"timestamp":tstamp, "source":source}

@@ -22,7 +22,7 @@ def getValueBook(pmaxid=0):
                   "and er.asof=vlist.asof) rates "
                 "on CASE WHEN rates.protocol1='Fiat' "
                   "THEN rates.propertyid1=sp.propertyid and sp.protocol='Fiat' "
-                  "ELSE rates.propertyid2=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Bitcoin') END")
+                  "ELSE rates.propertyid2=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Zurcoin') END")
   return book,ERMAX
 
 @app.route('/<currency>')
@@ -42,8 +42,8 @@ def getCurrentPriceRaw(input):
   currency=None
 
   if input[:2].upper() == "SP":
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Zurcoin'
+    pid1=getPropertyid('ZUR', protocol1)
     protocol2 = 'Omni'
     #strip off the SP and grab just the numbers
     pid2=input[2:]
@@ -54,26 +54,26 @@ def getCurrentPriceRaw(input):
     currency=input[3:]
     protocol1='Fiat'
     pid1=getPropertyid(currency, protocol1)
-    protocol2='Bitcoin'
+    protocol2='Zurcoin'
     pid2=getPropertyid(base, protocol2)
 
-  elif input == 'BTC':
+  elif input == 'ZUR':
     #default to USD
     protocol1='Fiat'
     pid1=getPropertyid('USD', protocol1)
-    protocol2='Bitcoin'
-    pid2=getPropertyid('BTC', protocol2)
+    protocol2='Zurcoin'
+    pid2=getPropertyid('ZUR', protocol2)
 
-  elif input == 'OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+  elif input == 'ZUS':
+    protocol1='Zurcoin'
+    pid1=getPropertyid('ZUR', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=1
 
-  elif input == 'T-OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+  elif input == 'T-ZUS':
+    protocol1='Zurcoin'
+    pid1=getPropertyid('ZUR', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=2
@@ -138,8 +138,8 @@ def history(currency=None):
   currency=None
 
   if input[:2].upper() == "SP":
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Zurcoin'
+    pid1=getPropertyid('ZUR', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=input[2:]
@@ -150,29 +150,29 @@ def history(currency=None):
     currency=input[3:]
     protocol1='Fiat'
     pid1=getPropertyid(currency, protocol1)
-    protocol2='Bitcoin'
+    protocol2='Zurcoin'
     pid2=getPropertyid(base, protocol2)
 
-  elif input == 'BTC':
+  elif input == 'ZUR':
     #default to USD
     protocol1='Fiat'
     pid1=getPropertyid('USD', protocol1)
-    protocol2='Bitcoin'
-    pid2=getPropertyid('BTC', protocol2)
+    protocol2='Zurcoin'
+    pid2=getPropertyid('ZUR', protocol2)
 
-  elif input == 'OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+  elif input == 'ZUS':
+    protocol1='Zurcoin'
+    pid1=getPropertyid('ZUR', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
-    pid2=getPropertyid('OMNI', protocol2)
+    pid2=getPropertyid('ZUS', protocol2)
 
-  elif input == 'T-OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+  elif input == 'T-ZUS':
+    protocol1='Zurcoin'
+    pid1=getPropertyid('ZUR', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
-    pid2=getPropertyid('T-OMNI', protocol2)
+    pid2=getPropertyid('T-ZUS', protocol2)
 
   else:
     return jsonify([0])

@@ -96,12 +96,12 @@ def getBalanceData(address,btcdata):
                              atx.propertyid) s2
                         on s1.propertyid=s2.propertyid) f1
                      inner join smartproperties sp
-                     on f1.propertyid=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Bitcoin')
+                     on f1.propertyid=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Zurcoin')
                      order by f1.propertyid""",(addr,addr))
       balance_data = { 'balance': [] }
       for balrow in ROWS:
         cID = str(int(balrow[0])) #currency id
-        sym_t = ('BTC' if cID == '0' else ('OMNI' if cID == '1' else ('T-OMNI' if cID == '2' else 'SP' + cID) ) ) #symbol template
+        sym_t = ('ZUR' if cID == '0' else ('ZUS' if cID == '1' else ('T-ZUS' if cID == '2' else 'SP' + cID) ) ) #symbol template
         #1 = new indivisible property, 2=new divisible property (per spec)
         divi = True if int(balrow[1]) == 2 else False
         res = { 'symbol' : sym_t, 'divisible' : divi, 'id' : cID }
@@ -127,13 +127,13 @@ def getBalanceData(address,btcdata):
           #else:
           res['value'] = str(long(balrow[2]))
         balance_data['balance'].append(res)
-      #check if we got BTC data from DB, if not trigger manually add
+      #check if we got ZUR data from DB, if not trigger manually add
       addbtc=True
       for x in balance_data['balance']:
         if x['id'] == 0:
           addbtc=False
       if addbtc:
-        btc_balance = { 'symbol': 'BTC',
+        btc_balance = { 'symbol': 'ZUR',
                         'divisible': True,
                         'id' : '0',
                         'value' : btc_bal,

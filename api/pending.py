@@ -11,7 +11,7 @@ def insertpending(txhex):
     print_debug(("Error: ", e, "\n Could not decode PendingTx: ", txhex),2)
     return
 
-  if 'BTC' in rawtx:
+  if 'ZUR' in rawtx:
     #handle btc pending amounts
     insertbtc(rawtx)
 
@@ -24,9 +24,9 @@ def insertbtc(rawtx):
     inputs=rawtx['inputs']
     propertyid = 0
     txtype = 0
-    txversion = rawtx['BTC']['version']
-    txhash = rawtx['BTC']['txid']
-    protocol = "Bitcoin"
+    txversion = rawtx['ZUR']['version']
+    txhash = rawtx['ZUR']['txid']
+    protocol = "Zurcoin"
     txdbserialnum = dbSelect("select least(-1,min(txdbserialnum)) from transactions;")[0][0]
     txdbserialnum -= 1
     addresstxindex = 0
@@ -45,7 +45,7 @@ def insertbtc(rawtx):
 
     addresstxindex = 0
     addressrole="recipient"
-    for output in rawtx['BTC']['vout']:
+    for output in rawtx['ZUR']['vout']:
       outputamount = int(decimal.Decimal(str(output['value']))*decimal.Decimal(1e8))
       if output['scriptPubKey']['type'] != "nulldata":
         for addr in output['scriptPubKey']['addresses']:
@@ -55,11 +55,11 @@ def insertbtc(rawtx):
         addresstxindex+=1
 
     #store signed tx until it confirms
-    dbExecute("insert into txjson (txdbserialnum, protocol, txdata) values (%s,%s,%s)", (txdbserialnum, protocol, json.dumps(rawtx['BTC'])) )
+    dbExecute("insert into txjson (txdbserialnum, protocol, txdata) values (%s,%s,%s)", (txdbserialnum, protocol, json.dumps(rawtx['ZUR'])) )
 
     dbCommit()
   except Exception,e:
-    print_debug(("Error: ", e, "\n Could not add BTC PendingTx: ", rawtx),2)
+    print_debug(("Error: ", e, "\n Could not add ZUR PendingTx: ", rawtx),2)
     dbRollback()  
 
 def insertomni(rawtx):
@@ -73,7 +73,7 @@ def insertomni(rawtx):
     propertyid = rawtx['MP']['propertyid'] if 'propertyid' in rawtx['MP'] else rawtx['MP']['propertyidforsale']
     txtype = rawtx['MP']['type_int']
     txversion = rawtx['MP']['version']
-    txhash = rawtx['BTC']['txid']
+    txhash = rawtx['ZUR']['txid']
     protocol = "Omni"
     addresstxindex=0
     txdbserialnum = dbSelect("select least(-1,min(txdbserialnum)) from transactions;")[0][0]
@@ -135,6 +135,6 @@ def insertomni(rawtx):
 
     dbCommit()
   except Exception,e:
-    print_debug(("Error: ", e, "\n Could not add OMNI PendingTx: ", rawtx),2)
+    print_debug(("Error: ", e, "\n Could not add ZUS PendingTx: ", rawtx),2)
     dbRollback()
 

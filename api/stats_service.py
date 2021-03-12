@@ -71,8 +71,8 @@ def raw_stats():
     opc=len(rawecolist(1)['properties'])
     topc=len(rawecolist(2)['properties'])
 
-    obtc = getCurrentPriceRaw('OMNI')['price']
-    ousd = getCurrentPriceRaw('BTC')['price'] * obtc
+    obtc = getCurrentPriceRaw('ZUS')['price']
+    ousd = getCurrentPriceRaw('ZUR')['price'] * obtc
 
     response = {'amount_of_wallets': wallets, 'txcount_24hr':txs, 'txdaily':txdaily, 'properties_count':opc, 'test_properties_count':topc, 'omni_btc':obtc, 'omni_usd':ousd}
     #cache 20min

@@ -41,7 +41,7 @@ def decode(rawhex):
     rawBTC = decoderawtransaction(rawhex)['result']
     inputs = getinputs(rawBTC)['inputs']
   except:
-    rawBTC = "Can\'t decode BTC TX."
+    rawBTC = "Can\'t decode ZUR TX."
     inputs = {}
 
   try:
@@ -68,5 +68,5 @@ def decode(rawhex):
   else:
     error = "None"
 
-  print {'Sender':sender,'Reference':reference,'BTC':rawBTC, 'OMNI':rawOMNI,'inputs':inputs, 'error':error}
-  return {'Sender':sender,'Reference':reference,'BTC':rawBTC, 'OMNI':rawOMNI,'inputs':inputs, 'error':error}
+  print {'Sender':sender,'Reference':reference,'ZUR':rawBTC, 'ZUS':rawOMNI,'inputs':inputs, 'error':error}
+  return {'Sender':sender,'Reference':reference,'ZUR':rawBTC, 'ZUS':rawOMNI,'inputs':inputs, 'error':error}

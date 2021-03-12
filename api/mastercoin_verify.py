@@ -70,7 +70,7 @@ def addresses_OLD():
       #convert property type to true/false for divisibility calculations
       divisible=isDivisibleProperty(addrrow[3])
 
-      if currency_id == '0': #BTC
+      if currency_id == '0': #ZUR
         res['balance'] = ('%.8f' % float(addrrow[1])).rstrip('0').rstrip('.')
         response.append(res)
       else:

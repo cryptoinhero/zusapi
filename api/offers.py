@@ -50,7 +50,7 @@ def filterOffersByTime( currency_type , time_seconds , filter):
       currency = int(currency_type)
     except:
       try:
-        if (currency_type in ['OMNI','OMN','MSC']):
+        if (currency_type in ['ZUS','OMN','MSC']):
           currency = 1
         else:
           return []
@@ -76,9 +76,9 @@ def filterOffersByTime( currency_type , time_seconds , filter):
 
 def getName(propertyid):
   if int(propertyid) == 1:
-    name = 'Omni Token #1'
+    name = 'Zurshares #1'
   elif int(propertyid) == 2:
-   name = 'Test Omni Token #2'
+   name = 'Test Zurshares tokens #2'
   else:
     try:
       ROWS=dbSelect("select propertyname from smartproperties where protocol='Omni' and propertyid=%s",[int(propertyid)])

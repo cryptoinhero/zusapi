@@ -555,7 +555,7 @@ def gettxjson(hash_id):
       print_debug(("cache looked failed",ckey),7)
 
       if len(transaction_) == 64:
-        #ROWS=dbSelect("select txj.txdata, extract(epoch from t.txrecvtime) from transactions t, txjson txj where t.txdbserialnum = txj.txdbserialnum and t.protocol != 'Bitcoin' and t.txhash=%s", [transaction_])
+        #ROWS=dbSelect("select txj.txdata, extract(epoch from t.txrecvtime) from transactions t, txjson txj where t.txdbserialnum = txj.txdbserialnum and t.protocol != 'Zurcoin' and t.txhash=%s", [transaction_])
         ROWS=dbSelect("select txdata,txdbserialnum from txjson where txdata->>'txid'=%s", [transaction_])
       else:
         ROWS=[]
@@ -719,7 +719,7 @@ def getblocktxjson(block):
     print_debug(("cache looked failed",ckey),7)
     try:
         block_ = int( block ) #check numeric
-        ROWS=dbSelect("select txj.txdata from transactions t, txjson txj where t.txdbserialnum = txj.txdbserialnum and t.protocol != 'Bitcoin' and t.txblocknumber=%s", [block_])
+        ROWS=dbSelect("select txj.txdata from transactions t, txjson txj where t.txdbserialnum = txj.txdbserialnum and t.protocol != 'Zurcoin' and t.txblocknumber=%s", [block_])
     except Exception as e:
         return {'error':'This endpoint only consumes valid input. Invalid block'}
 
@@ -769,7 +769,7 @@ def getaddrhist(address,direction='both',page=1):
       offset=0
       page=0
 
-    query="select t.txhash from transactions t, addressesintxs atx where t.txdbserialnum = atx.txdbserialnum and t.protocol != 'Bitcoin' and atx.address='"+str(address_)+"'"
+    query="select t.txhash from transactions t, addressesintxs atx where t.txdbserialnum = atx.txdbserialnum and t.protocol != 'Zurcoin' and atx.address='"+str(address_)+"'"
     role='address'
     if direction=='send':
       role='sender'
@@ -812,7 +812,7 @@ def gettransaction_OLD(hash_id):
 
     ROWS=dbSelect("select t.txhash,t.protocol,t.txdbserialnum,t.txtype,t.txversion,t.ecosystem,t.txrecvtime,t.txstate,t.txerrorcode,"
                   "t.txblocknumber,t.txseqinblock,txj.txdbserialnum,txj.protocol,txj.txdata "
-                  "from transactions t, txjson txj where t.txdbserialnum = txj.txdbserialnum and t.protocol != 'Bitcoin' and t.txhash=%s", [transaction_])
+                  "from transactions t, txjson txj where t.txdbserialnum = txj.txdbserialnum and t.protocol != 'Zurcoin' and t.txhash=%s", [transaction_])
 
     if len(ROWS) < 1:
       return json.dumps([])
@@ -963,7 +963,7 @@ def gettransaction_OLD(hash_id):
       if txType == -22:
         ret['purchases'] = txJson['purchases']
         ret['currencyId'] = '0'
-        ret['currency_str'] = 'Bitcoin'
+        ret['currency_str'] = 'Zurcoin'
         ret['tx_type_str'] = 'Dex Purchase'
 
         payment = 0
@@ -983,9 +983,9 @@ def gettransaction_OLD(hash_id):
 
 def getName(propertyid):
   if int(propertyid) == 1:
-    name = 'Omni Token #1'
+    name = 'Zurshares #1'
   elif int(propertyid) == 2:
-   name = 'Test Omni Token #2'
+   name = 'Test Zurshares tokens #2'
   else:
     try:
       ROWS=dbSelect("select propertyname from smartproperties where protocol='Omni' and propertyid=%s",[int(propertyid)])
