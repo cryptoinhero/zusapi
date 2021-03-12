@@ -44,10 +44,10 @@ server {
         ##############
 
         ## Set this to reflect the location of the www directory within the omniapi repo.
-        root /home/ubuntu/omniapi/www/;
+        root /home/ubuntu/zusapi/www/;
         index index.htm index.html;
 
         ## Set this to reflect the location of the omni-redirects file within the omniwallet repo
-        include /home/ubuntu/omniapi/etc/nginx/sites-available/omni-redirects;
+        include /home/ubuntu/zusapi/etc/nginx/sites-available/omni-redirects;
 
 }
