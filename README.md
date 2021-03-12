@@ -18,7 +18,7 @@ Install python pip and the python packages from pip
 ## Config files needed
 To connect to and use the omnicored client define the following file with the following structure.
 ```
-cat ~/.bitcoin/bitcoin.conf
+cat ~/.zurcoin/zurcoin.conf
 rpcuser=
 rpcpassword=
 rpcport=
