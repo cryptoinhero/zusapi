@@ -201,15 +201,16 @@
                 uwsgi_pass 127.0.0.1:$PORT;
         }
 
-        location = /v1/blocks { rewrite ^ /v1/blocks/; }
-        location /v1/blocks { try_files $uri @flask_getblocks; }
+        location = /v1/transaction/blocks { rewrite ^ /v1/transaction/blocks/; }
+        location /v1/transaction/blocks { try_files $uri @flask_getblocks; }
         location @flask_getblocks {
                 include uwsgi_params;
-                uwsgi_param SCRIPT_NAME /v1/blocks;
+                uwsgi_param SCRIPT_NAME /v1/transaction/blocks;
                 uwsgi_param UWSGI_MODULE getblocks;
                 uwsgi_param UWSGI_CALLABLE app;
                 uwsgi_modifier1 30;
                 uwsgi_pass 127.0.0.1:$PORT;
+                add_header Access-Control-Allow-Origin "zusexplorer.io";
         }
 
         location ~ "^/v1/system/stats.json$" { rewrite ^ /v1/system/stats; }
