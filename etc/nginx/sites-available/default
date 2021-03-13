@@ -29,6 +29,7 @@ server {
         add_header Cache-Control "no-cache,no-store,must-revalidate"; 
         add_header Pragma "no-cache"; 
         add_header Expires "0";
+        add_header Access-Control-Allow-Origin "zusexplorer.io";
 
         #enable gzip compression
         gzip            on;

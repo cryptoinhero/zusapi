@@ -10,7 +10,6 @@
             add_header Cache-Control "public";
             add_header Pragma "";
             add_header Expires "2d";
-            add_header Access-Control-Allow-Origin "zusexplorer.io";
         }
 
         error_page 503 @maintenance;
@@ -210,7 +209,6 @@
                 uwsgi_param UWSGI_CALLABLE app;
                 uwsgi_modifier1 30;
                 uwsgi_pass 127.0.0.1:$PORT;
-                add_header Access-Control-Allow-Origin "zusexplorer.io";
         }
 
         location ~ "^/v1/system/stats.json$" { rewrite ^ /v1/system/stats; }
