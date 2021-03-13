@@ -10,7 +10,7 @@
             add_header Cache-Control "public";
             add_header Pragma "";
             add_header Expires "2d";
-            add_header Access-Control-Allow-Origin "zusexplorer.io"
+            add_header Access-Control-Allow-Origin "zusexplorer.io";
         }
 
         error_page 503 @maintenance;
