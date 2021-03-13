@@ -10,20 +10,9 @@
             add_header Cache-Control "public";
             add_header Pragma "";
             add_header Expires "2d";
-        map $http_origin $DO_CORS {
-
-        # indicates all map values are hostnames and should be parsed as such
-        hostnames;
-
-        # default value
-        default 'false';
-
-        # all your domains
-        localhost          'true';
-        www.zusexplorer.io 'true';
-        zuswallet.zurbank.io  'true';
+            add_header Access-Control-Allow-Origin "zusexplorer.io"
         }
-        }
+
         error_page 503 @maintenance;
         location @maintenance {
           rewrite ^(.*)$ /maint/maintenance.json break;
