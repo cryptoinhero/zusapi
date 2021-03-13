@@ -1,4 +1,15 @@
 	set $MY_ROOT $document_root;
+
+        #Re-route nested routed through index
+        location / {
+            if (-f $document_root/maint/maintenance.html ) {
+              return 503;
+            }
+
+            try_files $uri $uri/ /index.html =404;
+            add_header Cache-Control "public";
+            add_header Pragma "";
+            add_header Expires "2d";
         map $http_origin $DO_CORS {
 
         # indicates all map values are hostnames and should be parsed as such
@@ -12,18 +23,7 @@
         www.zusexplorer.io 'true';
         zuswallet.zurbank.io  'true';
         }
-        #Re-route nested routed through index
-        location / {
-            if (-f $document_root/maint/maintenance.html ) {
-              return 503;
-            }
-
-            try_files $uri $uri/ /index.html =404;
-            add_header Cache-Control "public";
-            add_header Pragma "";
-            add_header Expires "2d";
         }
-
         error_page 503 @maintenance;
         location @maintenance {
           rewrite ^(.*)$ /maint/maintenance.json break;
