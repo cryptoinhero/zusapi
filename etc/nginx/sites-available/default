@@ -29,7 +29,22 @@ server {
         add_header Cache-Control "no-cache,no-store,must-revalidate"; 
         add_header Pragma "no-cache"; 
         add_header Expires "0";
-        add_header Access-Control-Allow-Origin "zusexplorer.io";
+        set $cors_origin "";
+        set $cors_cred   "";
+        set $cors_header "";
+        set $cors_method "";
+
+        if ($http_origin ~* "^https.*\.zusexplorer\.io$") {
+                set $cors_origin $http_origin;
+                set $cors_cred   true;
+                set $cors_header $http_access_control_request_headers;
+                set $cors_method $http_access_control_request_method;
+        }
+
+        add_header Access-Control-Allow-Origin      $cors_origin;
+        add_header Access-Control-Allow-Credentials $cors_cred;
+        add_header Access-Control-Allow-Headers     $cors_header;
+        add_header Access-Control-Allow-Methods     $cors_method;        
 
         #enable gzip compression
         gzip            on;
