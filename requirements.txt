@@ -17,3 +17,4 @@ gevent==1.2.2
 #Flask-SocketIO==4.2.1
 tornado==5.1.1
 PyYAML==5.3
+flask_cors==3.0.10
