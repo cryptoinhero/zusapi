@@ -13,9 +13,8 @@ from validator import isvalid
 from flask_cors import CORS
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app, resources={"/*": {"origins": "*"}})
 app.debug = True
-@cross_origin()
 
 @app.route('/estimatefee/<addr>', methods=['GET','POST'])
 @ratelimit(limit=10, per=60)
@@ -640,7 +639,6 @@ def getblockhash(blocknumber):
 
 @app.route('/blocks/')
 @ratelimit(limit=10, per=10)
-@cross_origin()
 def getblockslisthelper():
   return getblockslist()
 
