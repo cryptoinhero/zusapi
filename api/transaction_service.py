@@ -640,6 +640,7 @@ def getblockhash(blocknumber):
 
 @app.route('/blocks/')
 @ratelimit(limit=10, per=10)
+@cross_origin()
 def getblockslisthelper():
   return getblockslist()
 
