@@ -15,6 +15,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.debug = True
+@cross_origin()
 
 @app.route('/estimatefee/<addr>', methods=['GET','POST'])
 @ratelimit(limit=10, per=60)
