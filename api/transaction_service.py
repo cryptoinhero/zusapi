@@ -10,8 +10,10 @@ from cacher import *
 from properties_service import getpropnamelist
 from debug import *
 from validator import isvalid
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.debug = True
 
 @app.route('/estimatefee/<addr>', methods=['GET','POST'])
