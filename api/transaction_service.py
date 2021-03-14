@@ -13,7 +13,7 @@ from validator import isvalid
 from flask_cors import CORS
 
 app = Flask(__name__)
-cors = CORS(flask_app, resources={r"/*": {"origins": "*", "allow_headers": "*", "expose_headers": "*"}})
+cors = CORS(app, resources={r"/*": {"origins": "*", "allow_headers": "*", "expose_headers": "*"}})
 app.debug = True
 
 @app.route('/estimatefee/<addr>', methods=['GET','POST'])
