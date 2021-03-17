@@ -205,7 +205,7 @@
         location @flask_getblocks {
                 include uwsgi_params;
                 uwsgi_param SCRIPT_NAME /v1/transaction/blocks;
-                uwsgi_param UWSGI_MODULE getblocks;
+                uwsgi_param UWSGI_MODULE transaction_service;
                 uwsgi_param UWSGI_CALLABLE app;
                 uwsgi_modifier1 30;
                 uwsgi_pass 127.0.0.1:$PORT;
