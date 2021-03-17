@@ -1,4 +1,4 @@
-update the user (ubuntu) and the path to startApi.sh in the omniapi.service file to match your system setup.
+update the user (ubuntu) and the path to startApi.sh in the zusapi.service file to match your system setup.
 
 Copy it to /etc/systemd/system
 
@@ -6,11 +6,11 @@ Copy it to /etc/systemd/system
 sudo systemctl daemon-reload
 
 #start the service
-sudo systemctl start omniapi.service
+sudo systemctl start zusapi.service
 
 #stop the service
-sudo systemctl stop omniapi.service
+sudo systemctl stop zusapi.service
 
 #if everything works/checks out then set it to auto start on boot
-sudo systemctl enable omniapi.service
+sudo systemctl enable zusapi.service
 
