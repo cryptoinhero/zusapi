@@ -9,7 +9,7 @@ from debug import *
 
 app = Flask(__name__)
 app.debug = True
-
+print_debug(("requested for getting blocks"),7)
 @app.route('/getlast', methods=['POST'])
 @ratelimit(limit=20, per=60)
 def getlast():
