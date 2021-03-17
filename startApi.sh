@@ -3,7 +3,7 @@ PYTHONBIN=python
 
 kill_child_processes() {
   #kill $SERVER_PID
-  uwsgi --stop /tmp/omniapi.pid
+  uwsgi --stop /tmp/zusapi.pid
   kill $WEBSOCKET_PID
   rm -f $LOCK_FILE
   exit 1
@@ -17,7 +17,7 @@ echo "Service Starting: $(TZ='UTC' date)"
 echo "Establishing environment variables..."
 APPDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LOGDIR=$APPDIR/logs
-LOCK_FILE=$APPDIR/omniapi.lock
+LOCK_FILE=$APPDIR/zusapi.lock
 
 # Export directories for API scripts to use
 export LOGDIR
@@ -47,7 +47,7 @@ do
       else
         echo "Starting uwsgi daemon..."
         cd $APPDIR/api
-        uwsgi -s 127.0.0.1:1088 -p 10 -M --vhost --enable-threads --log-x-forwarded-for --logto $LOGDIR/apps.log --pidfile /tmp/omniapi.pid --stats /tmp/stats.socket &
+        uwsgi -s 127.0.0.1:1088 -p 10 -M --vhost --enable-threads --log-x-forwarded-for --logto $LOGDIR/apps.log --pidfile /tmp/zusapi.pid --stats /tmp/stats.socket &
         #get snapshot of directory files
         APISHA=`ls -lR $APPDIR/api/*.py | sha1sum`
     fi
@@ -56,7 +56,7 @@ do
     CHECKSHA=`ls -lR $APPDIR/api/*.py | sha1sum`
     #Trigger api reload if changed
     if [ "$APISHA" != "$CHECKSHA" ]; then
-        uwsgi --reload /tmp/omniapi.pid
+        uwsgi --reload /tmp/zusapi.pid
         APISHA=$CHECKSHA
         echo Api Reloaded
     fi
