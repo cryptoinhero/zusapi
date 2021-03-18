@@ -1,5 +1,5 @@
 [Unit]
-Description=OmniAPI service
+Description=ZusAPI service
 
 [Service]
 Environment="PATH=/home/ubuntu/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
