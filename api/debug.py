@@ -14,7 +14,7 @@ def print_debug( msg, verbose):
     omsg=str(datetime.datetime.now())+": "+str(msg)
     print omsg
     sys.stdout.flush()
-    #log_file(omsg)
+    log_file(omsg)
 
 def log_file( msg ):
   commands.getoutput('echo '+msg+' >> '+LOGDIR+'/debug.log')
