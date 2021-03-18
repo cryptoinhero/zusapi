@@ -127,16 +127,14 @@ def listByEcosystem():
 
 def rawecolist(value):
   properties = rawlist()['properties']
-  print_debug(("properties==================",properties),7)  
-  print_debug(("rawecolist",value),7)
+
   pdata=[]
   for data in properties:    
     if value==2 and (data['propertyid']==2 or data['propertyid']>2147483650):
       pdata.append(data)
     elif value==1 and (data['propertyid']==1 or (data['propertyid']>2 and data['propertyid']<2147483648)):
       pdata.append(data)
-  
-  print_debug(("rawecolist result===================",data),7)
+
   response = {
               'status' : 'OK',
               'properties' : pdata
